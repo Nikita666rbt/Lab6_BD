@@ -1,0 +1,11 @@
+    elif a == 4:  # Удаление данных по имени
+        username = input("Введите имя удаляемого пользователя: ")
+
+        cursor.execute('DELETE FROM Users WHERE username = ?', (username,))
+
+        connection.commit()
+
+        if cursor.rowcount == 0:
+            print(f"Пользователь с именем {username} не найден.")
+        else:
+            print(f"Пользователь {username} удален.")

@@ -1,19 +1,19 @@
 import sqlite3
 
-connection = sqlite3.connect('my_database.db')
-cursor = connection.cursor()
 while True:
+    connection = sqlite3.connect('my_database.db')
+    cursor = connection.cursor()
+
     a = int(input("1.Создать таблицу"
                   "\n2.Добавить данные"
                   "\n3.Обновить данные"
-                  "\n3.Удалить данные"
                   "\n4.Запрос на поиск"
                   "\n5.Выйти"
                   "\nВыберите действие: "))
     if a == 1: # создание таблицы
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS Users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY,
         username TEXT NOT NULL,
         age INTEGER NOT NULL)
         ''')
@@ -43,16 +43,23 @@ while True:
         else:
             print(f"Возраст пользователя {username} обновлен на {new_age}.")
 
-        '''elif a == 4:  # Удаление данных по имени
-        username = int(input("Введите имя пользователя для редактирования данных: "))
-        new_username = input(f"Введите новое имя для {username}: ")
-        new_age = int(input(f"Введите новый возраст для {username}: "))
+    elif a == 4:  # Запрос
+        def get_record_id(table_name, field_name, field_value):
+            query = f"SELECT id FROM {table_name} WHERE {field_name} = ?"
+            cursor.execute(query, (field_value,))
+            results = cursor.fetchall()
 
-        cursor.execute("UPDATE Users SET age = ?, username = ? WHERE username = ?", (new_age, new_username, username))
+            # Если запись найдена, возвращаем её идентификатор, иначе None
+            if results:
+                return [row[0] for row in results]
+            else:
+                return None
 
-        #cursor.execute("INSERT INTO Users (username, age) VALUES (?, ?)", (username, age))
 
-        connection.commit()'''
+        table_name = 'Users'
+        field_name = 'username'
+        field_value = 'Андрей'
+        get_record_id(table_name, field_name, field_value)
 
     elif a == 5:
         connection.close()
