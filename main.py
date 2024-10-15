@@ -49,18 +49,17 @@ while True:
             cursor.execute(query, (field_value,))
             results = cursor.fetchall()
 
-            # Если запись найдена, возвращаем её идентификатор, иначе None
             if results:
                 return [row[0] for row in results]
             else:
                 return None
-
 
         table_name = 'Users'
         field_name = 'username'
         field_value = input("Введите имя для поиска: ")
 
         record_ids = get_record_id(table_name, field_name, field_value)
+
         if record_ids:
             print(f"Идентификаторы записей: {record_ids}")
         else:
