@@ -3,22 +3,22 @@ import sqlite3
 connection = sqlite3.connect('my_database.db')
 cursor = connection.cursor()
 
-a = int(input("Выберите действие:"
-              "\n1.Создать таблицу"
+a = int(input("1.Создать таблицу"
               "\n2.Добавить данные"
               "\n3.Удалить данные"
-              "\n4.Запрос на поиск"))
+              "\n4.Запрос на поиск"
+              "\nВыберите действие: "))
 if a == 1: # создание таблицы
 
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS Users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
-    age INTEGER NOT NULL
+    age INTEGER NOT NULL)
     ''')
 
     connection.commit()
-    print("Таблица создана")
+    print("Таблица создана!")
 
 '''elif a == 2:  # Добавление данных в таблицу
     username = input("Введите имя: ")
