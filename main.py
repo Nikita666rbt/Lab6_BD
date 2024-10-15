@@ -58,8 +58,13 @@ while True:
 
         table_name = 'Users'
         field_name = 'username'
-        field_value = 'Андрей'
-        get_record_id(table_name, field_name, field_value)
+        field_value = input("Введите имя для поиска: ")
+
+        record_ids = get_record_id(table_name, field_name, field_value)
+        if record_ids:
+            print(f"Идентификаторы записей: {record_ids}")
+        else:
+            print(record_ids)
 
     elif a == 5:
         connection.close()
