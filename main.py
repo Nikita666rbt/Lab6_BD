@@ -57,4 +57,4 @@ while True:
     else: print("Попробуйте снова!")
 
     connection.close()
-    print("\n")
+    print("")
