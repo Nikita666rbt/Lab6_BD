@@ -5,12 +5,12 @@ cursor = connection.cursor()
 while True:
     a = int(input("1.Создать таблицу"
                   "\n2.Добавить данные"
+                  "\n3.Обновить данные"
                   "\n3.Удалить данные"
                   "\n4.Запрос на поиск"
                   "\n5.Выйти"
                   "\nВыберите действие: "))
     if a == 1: # создание таблицы
-
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS Users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,29 +30,33 @@ while True:
         connection.commit()
         print("Добавлено!")
 
-        '''elif a == 3:  # Обновление данных по id
-            username = int(input("Введите имя пользователя для редактирования данных: "))
-            new_username = input(f"Введите новое имя для {username}: ")
-            new_age = int(input(f"Введите новый возраст для {username}: "))
+    elif a == 3:  # Обновление данных по имени
+        username = input("Введите имя пользователя для редактирования данных: ")
+        new_age = int(input(f"Введите новый возраст для {username}: "))
 
-            cursor.execute("UPDATE Users SET age = ?, username = ? WHERE username = ?", (new_age, new_username, username))
+        cursor.execute("UPDATE Users SET age = ? WHERE username = ?", (new_age, username))
 
-            #cursor.execute("INSERT INTO Users (username, age) VALUES (?, ?)", (username, age))
+        connection.commit()
 
-            connection.commit()
+        if cursor.rowcount == 0:
+            print(f"Пользователь с именем {username} не найден.")
+        else:
+            print(f"Возраст пользователя {username} обновлен на {new_age}.")
 
-            elif a == 4:  # Обновление данных по id
-            username = int(input("Введите имя пользователя для редактирования данных: "))
-            new_username = input(f"Введите новое имя для {username}: ")
-            new_age = int(input(f"Введите новый возраст для {username}: "))
+        '''elif a == 4:  # Удаление данных по имени
+        username = int(input("Введите имя пользователя для редактирования данных: "))
+        new_username = input(f"Введите новое имя для {username}: ")
+        new_age = int(input(f"Введите новый возраст для {username}: "))
 
-            cursor.execute("UPDATE Users SET age = ?, username = ? WHERE username = ?", (new_age, new_username, username))
+        cursor.execute("UPDATE Users SET age = ?, username = ? WHERE username = ?", (new_age, new_username, username))
 
-            #cursor.execute("INSERT INTO Users (username, age) VALUES (?, ?)", (username, age))
+        #cursor.execute("INSERT INTO Users (username, age) VALUES (?, ?)", (username, age))
 
-            connection.commit()'''
+        connection.commit()'''
 
-    elif a == 5: break  # Выход
+    elif a == 5:
+        connection.close()
+        break  # Выход
         
     else: print("Попробуйте снова!")
 
