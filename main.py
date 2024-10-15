@@ -20,7 +20,7 @@ if a == 1: # создание таблицы
     connection.commit()
     print("Таблица создана!")
 
-'''elif a == 2:  # Добавление данных в таблицу
+elif a == 2:  # Добавление данных в таблицу
     username = input("Введите имя: ")
     age = int(input("Введите возраст: "))
 
@@ -29,7 +29,7 @@ if a == 1: # создание таблицы
     connection.commit()
     print("Добавлено!")
 
-elif a == 3:  # Обновление данных по id
+'''elif a == 3:  # Обновление данных по id
     username = int(input("Введите имя пользователя для редактирования данных: "))
     new_username = input(f"Введите новое имя для {username}: ")
     new_age = int(input(f"Введите новый возраст для {username}: "))
